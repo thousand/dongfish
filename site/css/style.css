@@ -1,0 +1,112 @@
+:root {
+  --fg: #222;
+  --fg-trans: #2228;
+  --bg: #EAEAEA;
+}
+
+body {
+
+  background: var(--bg);
+  color: var(--fg);
+  /* TODO: Install font */
+  font-family: 'Anonymous Pro', monospace;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-areas:  'header' 
+                        'main' 
+                        'footer';
+  grid-template-rows: min-content minmax(min-content, 100%) min-content;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+#header {
+  grid-area: header;
+}
+
+#title {
+  font-size: clamp(2rem, 10vh, 4rem);
+  font-weight: bold;
+  text-align: center;
+}
+
+#fishtank {
+  grid-area: main;
+  overflow: hidden;
+  position: relative;
+  font-size: 2vw;
+}
+
+#add-fish {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-family: inherit;
+  color: var(--bg);
+  background: none;
+  background-image: radial-gradient(closest-side, var(--fg-trans), transparent, transparent);
+  background-size: contain;
+  opacity: 0;
+  animation-name: fade-in;
+  animation-duration: 5s;
+  animation-timing-function: ease-in;
+  animation-delay: 5s;
+}
+
+#footer {
+  grid-area: footer;
+}
+
+.fish {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--swim-top);
+
+  pointer-events: none;
+  animation: swim var(--swim-speed, 10s) 1 var(--swim-dir, forwards);
+  animation-timing-function: steps(65);
+
+  --anim-start: -10em;
+  --anim-end: calc(100% + 10em);
+}
+
+#grid-cell {
+  visibility: hidden;
+  position: absolute;
+  bottom: 100%;
+  right: 100%;
+}
+
+#grid-row {
+  visibility: hidden;
+  position: absolute;
+  bottom: 100%;
+  right: 100%;
+  width: calc(100% + 20em)
+}
+
+@keyframes swim {
+  0% {
+    transform: translateX(var(--anim-start), 0px);
+  }
+  100% {
+    transform: translateX(var(--anim-end));
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
